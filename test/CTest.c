@@ -49,10 +49,14 @@ int main(int argc, char* argv[])
 		}
 		DearImguiSDL_NewFrame(pMainWindow, pMainSurface, 1.0f / 60.0f);
 
-		/* Do stuff */
+		/* Previous Drawing */
+		SDL_SetRenderDrawColor(pRenderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderClear(pRenderer);
+
+		/* Demo Window */
 		igShowDemoWindow(NULL);
 
-		/* Nodes test */
+		/* Nodes Test */
 		const int hardcoded_node_id = 1;
 		const int output_attr_id = 2;
 		inodeBeginNodeEditor();
