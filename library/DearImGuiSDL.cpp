@@ -90,8 +90,8 @@ DearImguiSDL_Result DearImguiSDL_Initialize(const char* appName)
 		_mouseCursors[ImGuiMouseCursor_Hand] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
 		_mouseCursors[ImGuiMouseCursor_NotAllowed] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
 
-		pImGuiIo->IniFilename = NULL;
-		pImGuiIo->LogFilename = NULL;
+		//pImGuiIo->IniFilename = NULL;
+		//pImGuiIo->LogFilename = NULL;
 	}
 	/* Software Rasterizer */
 	imgui_sw::bind_imgui_painting();
