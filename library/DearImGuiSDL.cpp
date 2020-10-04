@@ -313,8 +313,7 @@ void DearImguiSDL_HandleEvent(SDL_Event* pEvent)
 	}
 }
 
-DearImguiSDL_Result DearImguiSDL_ShowSoftwareStats()
+void DearImguiSDL_ShowSoftwareStats()
 {
 	imgui_sw::show_stats();
-	return DEARIMGUISDL_SUCCESS;
 }
