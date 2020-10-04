@@ -29,12 +29,13 @@ extern "C" {
 
 	/* Return codes */
 	typedef enum {
-		DEARIMGUISDL_SUCCESS = 0,
-		DEARIMGUISDL_ERROR_INCOMPATIBLE_FORMAT = 1,
-		DEARIMGUISDL_ERROR_OUT_OF_MEMORY = 2,
-		DEARIMGUISDL_ERROR_UNREGISTERED = 3,
+		DEARIMGUISDL_SUCCESS, /* No issues */
+		DEARIMGUISDL_ERROR_INCOMPATIBLE_FORMAT, /* Incompatible format detected */
+		DEARIMGUISDL_ERROR_OUT_OF_MEMORY, /* Not enough room to allocate more data */
+		DEARIMGUISDL_ERROR_UNREGISTERED, /* Pre-requisite data has not been registered */
+		DEARIMGUISDL_ERROR_UNKNOWN, /* Unknown error has occured */
 		_DEARIMGUISDL_ERROR_COUNT,
-		DEARIMGUISDL_ERROR_UNKNOWN = UINT32_MAX
+		_DEARIMGUISDL_ERROR_MAX = UINT32_MAX,
 	} DearImguiSDL_Result;
 
 	/* Get a null terminated string for a return code */

@@ -15,7 +15,8 @@ const char* dearimguisdl_error_codes[_DEARIMGUISDL_ERROR_COUNT]
 	"SUCCESS",
 	"ERROR_INCOMPATIBLE_FORMAT",
 	"ERROR_OUT_OF_MEMORY",
-	"ERROR_UNREGISTERED"
+	"ERROR_UNREGISTERED",
+	"ERROR_UNKNOWN"
 };
 
 static SDL_Cursor* _mouseCursors[ImGuiMouseCursor_COUNT];
@@ -39,7 +40,7 @@ ImGuiIO* pImGuiIo;
 
 const char* DearImguiSDL_GetResultString(DearImguiSDL_Result result)
 {
-	if (result >= _DEARIMGUISDL_ERROR_COUNT || result < 0) { return "ERROR_UNKNOWN"; }
+	if (result >= _DEARIMGUISDL_ERROR_COUNT || result < 0) { result = DEARIMGUISDL_ERROR_UNKNOWN; }
 	return dearimguisdl_error_codes[result];
 }
 
