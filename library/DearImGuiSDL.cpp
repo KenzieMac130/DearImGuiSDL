@@ -48,6 +48,7 @@ DearImguiSDL_Result DearImguiSDL_Initialize(const char* appName)
 	/*Context*/
 	ImGui::CreateContext();
 	pImGuiIo = &ImGui::GetIO();
+
 	/*Input Mapping*/
 	{
 		pImGuiIo->BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
@@ -92,6 +93,13 @@ DearImguiSDL_Result DearImguiSDL_Initialize(const char* appName)
 
 		//pImGuiIo->IniFilename = NULL;
 		//pImGuiIo->LogFilename = NULL;
+	}
+	/* Optimize Style */
+	{
+		imgui_sw::make_style_fast();
+		/*for (int i = 0; i < ImGuiCol_COUNT; i++) {
+			ImGui::GetStyle().Colors[i].w = 1.0f;
+		}*/
 	}
 	/* Software Rasterizer */
 	imgui_sw::bind_imgui_painting();
@@ -244,6 +252,7 @@ DearImguiSDL_Result DearImguiSDL_RenderSurface(SDL_Surface* pSurface, SDL_Render
 		options
 	);
 
+	SDL_SetTextureBlendMode(pTargetTexture, SDL_BLENDMODE_BLEND);
 	SDL_UpdateTexture(pTargetTexture, nullptr, pPixelData, pSurface->w * sizeof(Uint32));
 	SDL_RenderCopy(pRenderer, pTargetTexture, nullptr, nullptr);
 
