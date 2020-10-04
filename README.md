@@ -4,6 +4,14 @@
 ## Use case
 I threw this together to serve as an easy to use jumping off point for those trying to learn basic computer graphics/game creation but are not yet comfortable diving into more complex graphics APIs. Supports C and C++!
 
+## Installation
+1. Include the "library" subdirectory into your CMake environment
+2. Add "link_libraries(DearImGuiSDL)"
+3. Add the "library" folder to your include directories.
+
+For using SDL in CMake: https://trenki2.github.io/blog/2017/06/02/using-sdl2-with-cmake/  
+Check out the test programs for how to get up and running.
+
 ## Why the uninspired naming?
 Uhhh... It was the name of the folder on my computer.
 
