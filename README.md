@@ -7,6 +7,9 @@ I threw this together to serve as an easy to use jumping off point for those try
 ## Why the uninspired naming?
 Uhhh... It was the name of the folder on my computer.
 
+## Is this tested and ready to use in production?
+No, please don't!
+
 ## Includes:
 * https://github.com/ocornut/imgui
 * https://github.com/cimgui/cimgui
