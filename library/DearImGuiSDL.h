@@ -1,4 +1,6 @@
 /* Bundles a bunch of ImGui goodies for easy use in SDL software applications */
+#ifndef _DEARIMGUISDL_H_
+#define _DEARIMGUISDL_H_
 
 #ifdef __cplusplus
 /* Include C++ libraries if using C++ */
@@ -54,4 +56,5 @@ extern "C" {
 
 #ifdef __cplusplus
 }
+#endif
 #endif
