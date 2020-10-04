@@ -1,4 +1,4 @@
-# DearImGuiSDL
+# ImGuiSDL
  A collection of dear imgui goodies wrapped up in a nice and easy to initialize bow for simple SDL projects.
 
 Includes:
