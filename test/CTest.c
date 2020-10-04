@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
 	/* Create a window */
 	SDL_Window* pMainWindow = SDL_CreateWindow(
-		"Main Window",
+		"C Main Window",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		1920,
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	DearImguiSDL_RegisterSurface(pMainSurface, pRenderer);
 
 	/* Create Debug UI */
-	DearImguiSDL_Initialize("CPP TEST");
+	DearImguiSDL_Initialize("C TEST");
 
 	/* Main loop */
 	bool running = true;

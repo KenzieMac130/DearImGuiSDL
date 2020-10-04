@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
 	/* Create a window */
 	SDL_Window* pMainWindow = SDL_CreateWindow(
-		"Main Window",
+		"CPP Main Window",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		1920,
