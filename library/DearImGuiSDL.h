@@ -54,6 +54,8 @@ extern "C" {
 	DearImguiSDL_Result DearImguiSDL_NewFrame(SDL_Window* pActiveWindow, SDL_Surface* pSurface, float deltaTime);
 	/* End the current frame. Call this before rendering. */
 	DearImguiSDL_Result DearImguiSDL_EndFrame();
+	/* Get the time it took to complete the last NewFrame/EndFrame cycle in seconds */
+	float DearImguiSDL_GetFrameTime();
 
 	/* Register an SDL surface before rendering the gui to it.
 	Call this after creating the surface. */

@@ -5,10 +5,14 @@
 #include <SDL_events.h>
 #include <SDL_keyboard.h>
 #include <SDL_video.h>
+#include <SDL_timer.h>
 
 #include "imgui_software/imgui_sw.hpp"
 
 #include <stdlib.h>
+
+uint64_t TIME_NOW = 60;
+uint64_t TIME_LAST = 0;
 
 const char* dearimguisdl_error_codes[_DEARIMGUISDL_ERROR_COUNT]
 {
@@ -102,11 +106,13 @@ DearImguiSDL_Result DearImguiSDL_Initialize(const char* appName)
 			ImGui::GetStyle().Colors[i].w = 1.0f;
 		}*/
 	}
+
 	/* Software Rasterizer */
 	imgui_sw::bind_imgui_painting();
 
 	/* Imnodes */
 	imnodes::Initialize();
+
 	return DEARIMGUISDL_SUCCESS;
 }
 
@@ -174,8 +180,15 @@ DearImguiSDL_Result DearImguiSDL_NewFrame(SDL_Window* pActiveWindow, SDL_Surface
 
 DearImguiSDL_Result DearImguiSDL_EndFrame()
 {
+	TIME_LAST = TIME_NOW;
+	TIME_NOW = SDL_GetPerformanceCounter();
 	ImGui::EndFrame();
 	return DEARIMGUISDL_SUCCESS;
+}
+
+float DearImguiSDL_GetFrameTime()
+{
+	return (float)((TIME_NOW - TIME_LAST) * 1000 / (double)SDL_GetPerformanceFrequency()) * 0.001f;
 }
 
 struct surfaceRemap

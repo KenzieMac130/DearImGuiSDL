@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 			}
 			DearImguiSDL_HandleEvent(&event);
 		}
-		DearImguiSDL_NewFrame(pMainWindow, pMainSurface, 1.0f / 60.0f);
+		DearImguiSDL_NewFrame(pMainWindow, pMainSurface, DearImguiSDL_GetFrameTime());
 
 		/* Previous Drawing */
 		SDL_SetRenderDrawColor(pRenderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
