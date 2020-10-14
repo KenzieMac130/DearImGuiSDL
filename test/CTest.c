@@ -70,6 +70,7 @@ int main(int argc, char* argv[])
 		/* Nodes Test */
 		const int hardcoded_node_id = 1;
 		const int output_attr_id = 2;
+		igBegin("Node Editor", NULL, 0);
 		inodeBeginNodeEditor();
 		inodeBeginNode(hardcoded_node_id);
 		inodeBeginOutputAttribute(output_attr_id, ImNodesPinShape_PinShape_Circle);
@@ -77,6 +78,7 @@ int main(int argc, char* argv[])
 		inodeEndAttribute();
 		inodeEndNode();
 		inodeEndNodeEditor();
+		igEnd();
 
 		/* Custom Image Test */
 		igBegin("Test Image", NULL, 0);

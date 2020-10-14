@@ -70,6 +70,7 @@ int main(int argc, char* argv[])
 		/* Nodes Test */
 		const int hardcoded_node_id = 1;
 		const int output_attr_id = 2;
+		ImGui::Begin("Node Editor");
 		imnodes::BeginNodeEditor();
 		imnodes::BeginNode(hardcoded_node_id);
 		imnodes::BeginOutputAttribute(output_attr_id);
@@ -77,6 +78,7 @@ int main(int argc, char* argv[])
 		imnodes::EndAttribute();
 		imnodes::EndNode();
 		imnodes::EndNodeEditor();
+		ImGui::End();
 
 		/* Custom Image Test */
 		ImGui::Begin("Test Image");
