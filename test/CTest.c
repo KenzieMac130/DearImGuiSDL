@@ -7,6 +7,9 @@
 
 #include "DearImGuiSDL.h"
 
+#include "TestImage.h"
+TEST_GRID_IMAGE()
+
 int main(int argc, char* argv[])
 {
 	SDL_Init(SDL_INIT_VIDEO);
@@ -32,6 +35,14 @@ int main(int argc, char* argv[])
 
 	/* Create Debug UI */
 	DearImguiSDL_Initialize("C TEST");
+
+	/* Upload test Image */
+	ImTextureID texture;
+	DearImguiSDL_RegisterTexture(
+		&texture,
+		(uint32_t*)test_grid_image.pixel_data,
+		test_grid_image.width,
+		test_grid_image.height);
 
 	/* Main loop */
 	bool running = true;
@@ -67,6 +78,11 @@ int main(int argc, char* argv[])
 		inodeEndNode();
 		inodeEndNodeEditor();
 
+		/* Custom Image Test */
+		igBegin("Test Image", NULL, 0);
+		igImage(texture, (ImVec2){ 128, 128 }, (ImVec2) { 0, 0 }, (ImVec2) { 1, 1 }, (ImVec4) { 1, 1, 1, 1 }, (ImVec4) { 0, 0, 0, 0 });
+		igEnd();
+
 		SDL_RenderClear(pRenderer);
 
 		/* Update Debug UI */
@@ -76,6 +92,7 @@ int main(int argc, char* argv[])
 		SDL_RenderPresent(pRenderer);
 	}
 
+	DearImguiSDL_UnregisterTexture(&texture);
 	DearImguiSDL_UnregisterSurface(pMainSurface, pRenderer);
 	DearImguiSDL_Shutdown();
 	SDL_DestroyWindow(pMainWindow);

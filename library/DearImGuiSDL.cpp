@@ -318,3 +318,15 @@ void DearImguiSDL_ShowSoftwareStats()
 {
 	imgui_sw::show_stats();
 }
+
+DearImguiSDL_Result DearImguiSDL_RegisterTexture(ImTextureID* pTexture, uint32_t* pixels, uint32_t width, uint32_t height)
+{
+	*pTexture = (ImTextureID)imgui_sw::create_texture(pixels, width, height);
+	return DEARIMGUISDL_SUCCESS;
+}
+
+DearImguiSDL_Result DearImguiSDL_UnregisterTexture(ImTextureID* pTexture)
+{
+	imgui_sw::release_texture(*pTexture);
+	return DEARIMGUISDL_SUCCESS;
+}

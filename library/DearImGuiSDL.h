@@ -70,6 +70,16 @@ extern "C" {
 	/* Show the software rendering statistics in an imgui window. Assumes "ImGui::Begin()" has been called. */
 	void DearImguiSDL_ShowSoftwareStats();
 
+	/* Register pixels to be used as a texture 
+	Expects pixels to be in an RGBA8 format
+	Call this to begin using a custom image 
+	Pixels can be updated without the need to recreate
+	Do not free pixels until unregistering */
+	DearImguiSDL_Result DearImguiSDL_RegisterTexture(ImTextureID* pTexture, uint32_t* pixels, uint32_t width, uint32_t height);
+
+	/* Unregister a texture and make it safe for pixels to be freed */
+	DearImguiSDL_Result DearImguiSDL_UnregisterTexture(ImTextureID* pTexture);
+
 #ifdef __cplusplus
 }
 #endif

@@ -46,4 +46,11 @@ bool show_options(SwOptions* io_options);
 /// Show rendering stats in an ImGui window if you want to.
 void show_stats();
 
+//// Important: Do not free pixels until after the texture is released
+void* create_texture(uint32_t* pixels, int width_pixels, int height_pixels);
+
+//// Release the memory used for the texture object
+//// Pixels can be freed after release
+void release_texture(void* texture_ptr);
+
 } // namespace imgui_sw

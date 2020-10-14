@@ -28,7 +28,7 @@ struct Stats
 
 struct Texture
 {
-	const uint8_t* pixels; // 8-bit.
+	const uint32_t* pixels; // 8-bit.
 	int            width;
 	int            height;
 };
@@ -200,7 +200,7 @@ float barycentric(const ImVec2& a, const ImVec2& b, const ImVec2& point)
 	return (b.x - a.x) * (point.y - a.y) - (b.y - a.y) * (point.x - a.x);
 }
 
-inline uint8_t sample_texture(const Texture& texture, const ImVec2& uv)
+inline uint32_t sample_texture(const Texture& texture, const ImVec2& uv)
 {
 	int tx = static_cast<int>(uv.x * (texture.width  - 1.0f) + 0.5f);
 	int ty = static_cast<int>(uv.y * (texture.height - 1.0f) + 0.5f);
@@ -307,18 +307,18 @@ void paint_uniform_textured_rectangle(
 		current_uv.x = uv_topleft.x;
 		for (int x = min_x_i; x < max_x_i; ++x, current_uv.x += delta_uv_per_pixel.x) {
 			uint32_t& target_pixel = target.pixels[y * target.width + x];
-			const uint8_t texel = sample_texture(texture, current_uv);
+			const ColorInt texel = ColorInt(sample_texture(texture, current_uv));
 
-			// The font texture is all black or all white, so optimize for this:
-			if (texel == 0) { continue; }
-			if (texel == 255) {
-				target_pixel = min_v.col;
-				continue;
-			}
+			// If the alpha is 0 we can reject this pixel, so optimize for this:
+			if (texel.a == 0) { continue; }
 
 			// Other textured rectangles
 			ColorInt source_color = ColorInt(min_v.col);
-			source_color.a = source_color.a * texel / 255;
+			// Todo: optimize blending
+			source_color.a = source_color.a * texel.a / 255;
+			source_color.r = source_color.r * texel.r / 255;
+			source_color.g = source_color.g * texel.g / 255;
+			source_color.b = source_color.b * texel.b / 255;
 			target_pixel = blend(ColorInt(target_pixel), source_color).toUint32();
 		}
 	}
@@ -485,7 +485,11 @@ void paint_triangle(
 			if (texture) {
 				stats->textured_triangle_pixels += 1;
 				const ImVec2 uv = w0 * v0.uv + w1 * v1.uv + w2 * v2.uv;
-				src_color.w *= sample_texture(*texture, uv) / 255.0f;
+				const ImVec4 texel = color_convert_u32_to_float4(sample_texture(*texture, uv));
+				src_color.x *= texel.x;
+				src_color.y *= texel.y;
+				src_color.z *= texel.z;
+				src_color.w *= texel.w;
 			}
 
 			if (src_color.w <= 0.0f) { continue; } // Transparent.
@@ -681,8 +685,8 @@ void bind_imgui_painting()
 	// Load default font (embedded in code):
 	uint8_t* tex_data;
 	int font_width, font_height;
-	io.Fonts->GetTexDataAsAlpha8(&tex_data, &font_width, &font_height);
-	const auto texture = new Texture{tex_data, font_width, font_height};
+	io.Fonts->GetTexDataAsRGBA32(&tex_data, &font_width, &font_height);
+	const auto texture = new Texture{(uint32_t*)tex_data, font_width, font_height};
 	io.Fonts->TexID = texture;
 }
 
@@ -728,6 +732,16 @@ void show_stats()
 	ImGui::Text("textured_rectangle_pixels:          %7.0f", s_stats.textured_rectangle_pixels);
 	ImGui::Text("gradient_rectangle_pixels:          %7.0f", s_stats.gradient_rectangle_pixels);
 	ImGui::Text("gradient_textured_rectangle_pixels: %7.0f", s_stats.gradient_textured_rectangle_pixels);
+}
+
+void* create_texture(uint32_t* pixels, int width_pixels, int height_pixels)
+{
+	return (void*)new Texture{ pixels, width_pixels, height_pixels };
+}
+
+void release_texture(void* texture_ptr)
+{
+	delete (Texture*)texture_ptr;
 }
 
 } // namespace imgui_sw
